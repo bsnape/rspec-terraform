@@ -1,6 +1,9 @@
 require 'bundler/setup'
+require 'rspec/expectations'
+require 'open3'
 
 require_relative 'rspec-terraform/version'
+require_relative 'rspec-terraform/matchers/create_a_plan'
 
 RSpec.configure do |config|
 
