@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Ben Snape']
   spec.email         = ['bsnape@gmail.com']
 
-  spec.summary       = %q{RSpec test fixtures for Terraform modules.}
+  spec.summary       = 'RSpec test fixtures for Terraform modules.'
   spec.homepage      = 'https://github.com/bsnape/rspec-terraform'
   spec.license       = 'MIT'
 
@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.9'
   spec.add_development_dependency 'rake', '~> 10.4.2'
   spec.add_development_dependency 'rspec', '~> 3.3.0'
+  spec.add_development_dependency 'rubocop', '~> 0.33.0'
 end
