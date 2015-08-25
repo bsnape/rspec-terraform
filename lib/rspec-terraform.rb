@@ -9,4 +9,13 @@ RSpec.configure do |config|
     ENV['TF_VAR_secret_key'] = 'bar'
   end
 
+  config.after(:each, provider: :aws) do
+    cleanup!
+  end
+
+  def cleanup!
+    `rm -f plan.tf`
+    `rm -f terraform.tfstate`
+    `rm -f provider.tf`
+  end
 end
