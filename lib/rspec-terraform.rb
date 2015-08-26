@@ -4,6 +4,7 @@ require 'open3'
 
 require_relative 'rspec-terraform/version'
 require_relative 'rspec-terraform/matchers/create_a_plan'
+require_relative 'rspec-terraform/matchers/require_variables'
 
 RSpec.configure do |config|
 
