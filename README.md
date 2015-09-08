@@ -65,16 +65,13 @@ At present, only the `AWS` provider is available.
 The matchers currently implemented are:
 
 1. `require_variables`
-
 ```ruby
 it 'expects the correct variables to be provided' do
   expected_variables = %w(vpccidr ec2nameserver region account envname domain)
   expect('terraform plan').to require_variables expected_variables
 end
 ```
-
 2. `create_a_plan`
-
 ```ruby
 it 'creates a plan' do
   expect('terraform plan -var-file example_variables/test_values.tfvars').to create_a_plan
