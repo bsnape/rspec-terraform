@@ -1,4 +1,4 @@
-# Rspec::Terraform
+# Rspec-Terraform
 
 * [Motivation](#motivation)
   * [Looking Ahead](#looking-ahead)
@@ -9,8 +9,8 @@
 
 ## Motivation
 
-[Terraform](https://github.com/hashicorp/terraform) is an awesome way of provisioning your infrastructure. However, with
-any new tool, the ecosystem surrounding it is very immature. This can cause problems when sharing code or coming up
+[Terraform](https://github.com/hashicorp/terraform) is an awesome way of provisioning your infrastructure. However, like
+with any new tool, the ecosystem surrounding it is very immature. This can cause problems when sharing code or coming up
 against the rough edges of a tool in active development.
 
 The creation of `rspec-terraform` was initially intended to smooth the creation and sharing of common Terraform
@@ -21,7 +21,7 @@ modules. Some sort of basic testing would ensure a stable and clearly defined in
 Eventually, a two-tiered approach to testing would be ideal.
  
 Provisioning non-trivial infrastructure should involve the use of many Terraform modules (rather than defining
-everything yourself). Taking AWS as an example, this would include VPCs, ASGs, SGs, public/private subnets etc. Each of
+everything yourself). Taking AWS as an example, this might include VPCs, ASGs, SGs, public/private subnets etc. Each of
 these modules should be unit tested using `rspec-terraform` so that the interfaces they expose are well-defined.
 
 Assembling many individual modules into a cohesive platform should also - ideally - be tested. It's unclear at this
