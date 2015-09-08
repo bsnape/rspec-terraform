@@ -3,7 +3,8 @@
 * [Motivation](#motivation)
   * [Looking Ahead](#looking-ahead)
 * [Usage](#usage)
-* [Installation](#installation)
+  * [Setup](#setup)
+  * [Matchers](#matchers)
 * [Contributing](#contributing)
 
 ## Motivation
@@ -29,9 +30,9 @@ stage how this might look and is yet to be implemented. Something similar to
 
 ## Usage
 
-TODO: Write usage instructions here
+As [outlined above](#motivation), only simple unit-test type operations are currently supported.
 
-## Installation
+### Setup
 
 You will need Ruby and bundler installed.
 
@@ -49,15 +50,38 @@ Then install the gem:
 bundle
 ```
 
-Alternatively, you can install the gem manually:
+### Matchers
 
-```bash
-$ gem install rspec-terraform
+**N.B.** you must set the provider for each test. This is best done in the opening `describe` block:**
+
+```ruby
+describe 'tf-aws-vpc', provider: :aws do
+  ...
+end
+```
+
+Currently, only two matchers are available.
+
+1. `require_variables`
+
+```ruby
+it 'expects the correct variables to be provided' do
+  expected_variables = %w(vpccidr ec2nameserver region account envname domain)
+  expect('terraform plan').to require_variables expected_variables
+end
+```
+
+2. `create_a_plan`
+
+```ruby
+it 'creates a plan' do
+  expect('terraform plan -var-file example_variables/test_values.tfvars').to create_a_plan
+end
 ```
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/rspec-terraform/fork )
+1. Fork it ( https://github.com/bsnape/rspec-terraform/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
