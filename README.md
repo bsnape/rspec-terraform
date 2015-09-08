@@ -52,7 +52,7 @@ bundle
 
 ### Matchers
 
-**N.B.** you must set the provider for each test. This is best done in the opening `describe` block:**
+**N.B.** You must set the provider for each test. This is best done in the opening `describe` block:
 
 ```ruby
 describe 'tf-aws-vpc', provider: :aws do
@@ -60,7 +60,9 @@ describe 'tf-aws-vpc', provider: :aws do
 end
 ```
 
-Currently, only two matchers are available.
+At present, only the `AWS` provider is available.
+
+The matchers currently implemented are:
 
 1. `require_variables`
 
