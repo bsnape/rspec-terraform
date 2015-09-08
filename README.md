@@ -73,6 +73,7 @@ The matchers currently implemented are:
  end
  ```
 2. `create_a_plan`
+
  ```ruby
  it 'creates a plan' do
    expect('terraform plan -var-file example_variables/test_values.tfvars').to create_a_plan
