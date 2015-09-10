@@ -1,36 +1,43 @@
 describe 'require variables matcher' do
-  context 'when a single variable is required' do
-    before do
+  after(:each) do
+    delete_variables_file
+  end
+
+  context 'when a module expects one variable' do
+    before(:each) do
       variables = 'variable "foo" {}'
       create_variables_file variables
     end
 
-    it 'identifies a missing terraform variable' do
+    it 'passes the assertion when the correct variables are provided' do
       missing_variable = ['foo']
       expect { expect('terraform plan -out=plan.tf').to require_variables(missing_variable) }.not_to raise_error
     end
 
-    after do
-      delete_variables_file
+    it 'identifies missing variables' do
+      expected_variables = []
+      error              = RSpec::Expectations::ExpectationNotMetError
+      error_message      = /The missing variables were: \["foo"\]/
+      expect { expect('terraform plan -out=plan.tf').to require_variables(expected_variables) }.to raise_error(error, error_message)
+    end
+
+    it 'identifies extra variables' do
+      expected_variables = %w(foo bar)
+      error              = RSpec::Expectations::ExpectationNotMetError
+      error_message      = /The extra variables were: \["bar"\]/
+      expect { expect('terraform plan -out=plan.tf').to require_variables(expected_variables) }.to raise_error(error, error_message)
     end
   end
 
-  context 'when multiple variables are required' do
-    before do
-      variables = <<EOF
-variable "foo" {}
-variable "bar" {}
-EOF
+  context 'when a module expects multiple variables' do
+    before(:each) do
+      variables = "variable \"foo\" {}\nvariable \"bar\" {}"
       create_variables_file variables
     end
 
     it 'identifies multiple missing terraform variables in any order' do
-      missing_variables = ['bar', 'foo']
+      missing_variables = %w(bar foo)
       expect { expect('terraform plan -out=plan.tf').to require_variables(missing_variables) }.not_to raise_error
-    end
-
-    after do
-      delete_variables_file
     end
   end
 end
