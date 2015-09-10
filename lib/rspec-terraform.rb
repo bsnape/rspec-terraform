@@ -8,10 +8,13 @@ require_relative 'rspec-terraform/matchers/create_a_plan'
 require_relative 'rspec-terraform/matchers/require_variables'
 
 RSpec.configure do |config|
-
-  config.before(:each, provider: :aws) do
-    ENV['TF_VAR_access_key'] = 'foo'
-    ENV['TF_VAR_secret_key'] = 'bar'
+  # https://github.com/hashicorp/terraform/pull/2730
+  # Correct credentials must be provided
+  config.before(:all, provider: :aws) do
+    unless ENV['TF_VAR_access_key'] && ENV['TF_VAR_secret_key'] && ENV['TF_VAR_region']
+      fail 'You must provide your AWS credentials and region as environment variables: '\
+      "'TF_VAR_access_key', 'TF_VAR_secret_key', 'TF_VAR_region'"
+    end
   end
 
   config.after(:each, provider: :aws) do
